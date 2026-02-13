@@ -155,6 +155,7 @@ Examples/Stereo-Inertial/TUM-VI.yaml \
 ```
 
 ## Evaluation
+
 In TUM-VI ground truth is only available in the room where all sequences start and end. As a result the error measures the drift at the end of the sequence. 
 
 Execute the following script to process sequences and compute the RMS ATE:
