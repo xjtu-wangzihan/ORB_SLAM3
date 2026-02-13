@@ -92,7 +92,6 @@ cd ORB_SLAM3
 chmod +x build.sh
 ./build.sh
 ```
-
 This will create **libORB_SLAM3.so**  at *lib* folder and the executables in *Examples* folder.
 
 # 4. Running ORB-SLAM3 with your camera
