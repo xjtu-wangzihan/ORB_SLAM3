@@ -137,10 +137,47 @@ Execute the following script to process sequences and compute the RMS ATE:
 1. Download a sequence from https://vision.in.tum.de/data/datasets/visual-inertial-dataset and uncompress it.
 
 2. Open the script "tum_vi_examples.sh" in the root of the project. Change **pathDatasetTUM_VI** variable to point to the directory where the dataset has been uncompressed. 
+最新版本（1.0version）已经没有这个文件了
+用下列命令运行：
+```
+cd ~/ORB_SLAM3
 
+./Examples/Stereo-Inertial/stereo_inertial_tum_vi \
+Vocabulary/ORBvoc.txt \
+Examples/Stereo-Inertial/TUM-VI.yaml \
+~/tum_dataset/dataset-room1_512_16/mav0/cam0/data \
+~/tum_dataset/dataset-room1_512_16/mav0/cam1/data \
+~/tum_dataset/dataset-room1_512_16/mav0/cam0/times_cam0.txt \
+~/tum_dataset/dataset-room1_512_16/mav0/imu0/data.csv
+```
 3. Execute the following script to process all the sequences with all sensor configurations:
 ```
 ./tum_vi_examples
+```
+这文件新版本也没有了，精度评估代码：
+```
+pip3 install evo --upgrade --no-binary evo
+```
+把 GT 从 ns 转换为秒
+```
+awk -F',' 'NR>1 {printf "%.9f %.9f %.9f %.9f %.9f %.9f %.9f %.9f\n", $1/1e9, $2, $3, $4, $5, $6, $7, $8}' \
+~/tum_dataset/dataset-room1_512_16/mav0/mocap0/data.csv \
+> gt_tum.txt
+```
+把 ORB-SLAM3 轨迹也转成秒
+```
+awk '{printf "%.9f %.9f %.9f %.9f %.9f %.9f %.9f %.9f\n", $1/1e9, $2, $3, $4, $5, $6, $7, $8}' \
+CameraTrajectory.txt \
+> slam_tum.txt
+```
+直接用 tum 模式评估
+```
+evo_ape tum \
+gt_tum.txt \
+slam_tum.txt \
+--align \
+--correct_scale \
+--plot
 ```
 
 ## Evaluation
