@@ -153,31 +153,6 @@ Examples/Stereo-Inertial/TUM-VI.yaml \
 ```
 ./tum_vi_examples
 ```
-这文件新版本也没有了，精度评估代码：
-```
-pip3 install evo --upgrade --no-binary evo
-```
-把 GT 从 ns 转换为秒
-```
-awk -F',' 'NR>1 {printf "%.9f %.9f %.9f %.9f %.9f %.9f %.9f %.9f\n", $1/1e9, $2, $3, $4, $5, $6, $7, $8}' \
-~/tum_dataset/dataset-room1_512_16/mav0/mocap0/data.csv \
-> gt_tum.txt
-```
-把 ORB-SLAM3 轨迹也转成秒
-```
-awk '{printf "%.9f %.9f %.9f %.9f %.9f %.9f %.9f %.9f\n", $1/1e9, $2, $3, $4, $5, $6, $7, $8}' \
-CameraTrajectory.txt \
-> slam_tum.txt
-```
-直接用 tum 模式评估
-```
-evo_ape tum \
-gt_tum.txt \
-slam_tum.txt \
---align \
---correct_scale \
---plot
-```
 
 ## Evaluation
 In TUM-VI ground truth is only available in the room where all sequences start and end. As a result the error measures the drift at the end of the sequence. 
