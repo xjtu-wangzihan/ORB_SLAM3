@@ -141,7 +141,6 @@ Execute the following script to process sequences and compute the RMS ATE:
 用下列命令运行：
 ```
 cd ~/ORB_SLAM3
-
 ./Examples/Stereo-Inertial/stereo_inertial_tum_vi \
 Vocabulary/ORBvoc.txt \
 Examples/Stereo-Inertial/TUM-VI.yaml \
